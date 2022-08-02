@@ -2,7 +2,7 @@
     "name": "PlayerInputs",
     "maps": [
         {
-            "name": "Movement",
+            "name": "In-Game",
             "id": "32b7e569-0d55-444e-92eb-e437d24b57d8",
             "actions": [
                 {
@@ -18,6 +18,15 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "cb6efb29-94b5-4275-b1e9-18312b40e25a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "e30dbf34-d894-4797-801e-7293e8aa1b46",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -99,6 +108,67 @@
                     "processors": "",
                     "groups": "Player",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8677bea2-3d69-41a4-861c-4e3b49e446cc",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c79ba80d-c500-44cc-bb64-10bc7934eaf4",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "b26edb2c-5921-4917-af4b-b884a387ef90",
+            "actions": [
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "e6a6ef3d-7881-4bad-b0af-e8e6033fd315",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3aba2f6c-94fa-4ff0-895b-3bf81990a113",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a0e99f3d-ba48-48f8-be62-fce883aaacba",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

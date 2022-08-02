@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _moveDir;
     private float _jumpTime;
     private float _baseGravity;
+    private PlayerHand _hands;
 
     public Vector2 InputDir => _inputDir;
     public bool IsGrounded
@@ -34,9 +35,11 @@ public class PlayerController : MonoBehaviour
         _moveDir = Vector2.zero;
         _jumpTime = _jumpTimer;
         _baseGravity = _rb.gravityScale;
+        _hands = GetComponentInChildren<PlayerHand>();
 
         SetupActionMap();
-        _playerActions.Movement.Jump.performed += ctx => Jump();
+        _playerActions.InGame.Jump.performed += ctx => Jump();
+        _playerActions.InGame.Interact.performed += ctx => _hands.Interact(_hands.gameObject);
     }
 
     /// <summary>
@@ -44,7 +47,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        _inputDir = _playerActions.Movement.Move.ReadValue<Vector2>();
+        _inputDir = _playerActions.InGame.Move.ReadValue<Vector2>();
         ReduceGravity();
     }
 
@@ -91,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
     private void ReduceGravity()
     {
-        bool jumpPressed = _playerActions.Movement.Jump.IsPressed();
+        bool jumpPressed = _playerActions.InGame.Jump.IsPressed();
 
         if (!jumpPressed || _jumpTime < 0f)
         {

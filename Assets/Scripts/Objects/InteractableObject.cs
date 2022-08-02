@@ -2,6 +2,6 @@ using UnityEngine;
 
 public abstract class InteractableObject : MonoBehaviour, IInteractables
 {
-    public void Interact() => OnInteract();
-    protected abstract void OnInteract();
+    public void OnInteract(GameObject interactor) => Interacted(interactor);
+    protected abstract void Interacted(GameObject interactor);
 }
