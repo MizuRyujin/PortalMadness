@@ -18,6 +18,20 @@ public abstract class InteractableObject : MonoBehaviour, IInteractables
     protected abstract void Interacted(GameObject interactor);
 
     /// <summary>
+    /// Called when the script is loaded or a value is changed in the
+    /// inspector (Called in the editor only).
+    /// </summary>
+    protected void OnValidate()
+    {
+        if (sprite != null)
+        {
+            spriteRenderer.sprite = sprite;
+        }
+        interactionBox = GetComponent<BoxCollider2D>();
+        interactionBox.isTrigger = true;
+    }
+
+    /// <summary>
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
     /// </summary>
@@ -28,5 +42,6 @@ public abstract class InteractableObject : MonoBehaviour, IInteractables
             spriteRenderer.sprite = sprite;
         }
         interactionBox = GetComponent<BoxCollider2D>();
+        interactionBox.isTrigger = true;
     }
 }

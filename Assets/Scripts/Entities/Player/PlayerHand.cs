@@ -4,6 +4,7 @@ public class PlayerHand : MonoBehaviour
 {
     [SerializeField] private float _handRange;
     [field: SerializeField] public float ThrowStrength { get ; private set ; }
+    [SerializeField] private LayerMask _interactableLayer;
 
     private bool _isOccupied;
     private IInteractables _objInRange;
@@ -19,8 +20,10 @@ public class PlayerHand : MonoBehaviour
     /// <param name="interactor">GameObject that is interacting.</param>
     public void Interact(GameObject interactor)
     {
+        if (_objInRange == null) return;
+
         _objInRange.OnInteract(interactor);
-        if (_objInRange is Frisbee)
+        if (_objInRange is PickableObject)
         {
             if (!_isOccupied)
             {
@@ -46,7 +49,7 @@ public class PlayerHand : MonoBehaviour
         {
             InteractableObject obj = _objInHand as InteractableObject;
             obj.transform.parent = null;
-            _objInHand = null;
+            _objInHand = item;
         }
     }
 
@@ -62,8 +65,8 @@ public class PlayerHand : MonoBehaviour
 
     private void CheckForItems()
     {
-        Collider2D[] hits = new Collider2D[10];
-        int hitCount = Physics2D.OverlapBoxNonAlloc(transform.position, new Vector2(_handRange, _handRange * 1.12f), 0f, hits);
+        Collider2D[] hits = new Collider2D[1];
+        int hitCount = Physics2D.OverlapBoxNonAlloc(transform.position, new Vector2(_handRange, _handRange * 1.12f), 0f, hits, _interactableLayer);
         if (hitCount > 0)
         {
             for (int i = 0; i < hits.Length; i++)
@@ -77,6 +80,10 @@ public class PlayerHand : MonoBehaviour
                     }
                 }
             }
+        }
+        else
+        {
+            _objInRange = null;
         }
     }
 
