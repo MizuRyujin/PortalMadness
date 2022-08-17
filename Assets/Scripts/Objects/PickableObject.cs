@@ -24,7 +24,7 @@ public abstract class PickableObject : InteractableObject
     /// Called when the script is loaded or a value is changed in the
     /// inspector (Called in the editor only).
     /// </summary>
-    private void OnValidate()
+    private new void OnValidate()
     {
         base.OnValidate();
         spriteCollider = GetComponent<CapsuleCollider2D>();
@@ -50,12 +50,10 @@ public abstract class PickableObject : InteractableObject
         }
         if (interactor.TryGetComponent<PlayerHand>(out PlayerHand hand))
         {
-            Debug.Log("Picked up!");
             pickedUp = true;
             this.hand = hand;
             rb.isKinematic = true;
             spriteCollider.enabled = false;
-
         }
     }
 
