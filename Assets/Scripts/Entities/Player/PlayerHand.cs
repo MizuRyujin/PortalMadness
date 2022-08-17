@@ -1,20 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHand : MonoBehaviour
 {
     [SerializeField] private float _handRange;
+    [field: SerializeField] public float ThrowStrength { get ; private set ; }
+
     private bool _isOccupied;
     private IInteractables _objInRange;
     private IInteractables _objInHand;
 
     public bool IsOccupied => _isOccupied;
 
+    
+
+    /// <summary>
+    /// Interaction behaviour.
+    /// </summary>
+    /// <param name="interactor">GameObject that is interacting.</param>
     public void Interact(GameObject interactor)
     {
         _objInRange.OnInteract(interactor);
-        if (_objInRange is PickableObject)
+        if (_objInRange is Frisbee)
         {
             if (!_isOccupied)
             {
@@ -27,7 +33,7 @@ public class PlayerHand : MonoBehaviour
         }
     }
 
-    public void AttachOrRemoveToHand(bool attach, InteractableObject item = null)
+    private void AttachOrRemoveToHand(bool attach, InteractableObject item = null)
     {
         _isOccupied = attach;
         if (attach)
@@ -38,8 +44,9 @@ public class PlayerHand : MonoBehaviour
         }
         else
         {
+            InteractableObject obj = _objInHand as InteractableObject;
+            obj.transform.parent = null;
             _objInHand = null;
-            item.transform.parent = null;
         }
     }
 
@@ -65,7 +72,6 @@ public class PlayerHand : MonoBehaviour
                 {
                     if (hits[i].gameObject.TryGetComponent<InteractableObject>(out InteractableObject obj))
                     {
-                        Debug.Log("Interactable in range!");
                         _objInRange = obj;
                         break;
                     }

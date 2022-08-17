@@ -1,18 +1,7 @@
 using UnityEngine;
 
-public abstract class PickableObject : InteractableObject
+public class Frisbee : PickableObject
 {
-    protected bool pickedUp;
-    protected Rigidbody2D _rb;
-    protected CircleCollider2D _spriteCollider;
-
-
-    private new void Awake()
-    {
-        base.Awake();
-        _rb = GetComponent<Rigidbody2D>();
-        _spriteCollider = GetComponent<CircleCollider2D>();
-    }
     protected override void Interacted(GameObject interactor)
     {
         if (interactor.TryGetComponent<PlayerHand>(out PlayerHand hand))
@@ -30,5 +19,11 @@ public abstract class PickableObject : InteractableObject
         }
     }
 
-    protected abstract void UseItem(PlayerHand hand);
+    protected override void UseItem(PlayerHand hand)
+    {
+        Debug.Log("Was used!");
+        _rb.isKinematic = false;
+        _spriteCollider.enabled = true;
+        _rb.AddForce(hand.transform.right * hand.ThrowStrength);
+    }
 }

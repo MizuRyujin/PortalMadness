@@ -49,6 +49,14 @@ public class PlayerController : MonoBehaviour
     {
         _inputDir = _playerActions.InGame.Move.ReadValue<Vector2>();
         ReduceGravity();
+        if (_inputDir.x > 0 && _hands.transform.rotation != Quaternion.identity)
+        {
+            _hands.transform.rotation = Quaternion.identity;
+        }
+        else if (_inputDir.x < 0)
+        {
+            _hands.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        }
     }
 
     private void FixedUpdate()
@@ -74,11 +82,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             // Apply slowdown when input is released
-            if (_moveDir.x > 0.05f)
+            if (_moveDir.x >= 0.5f)
             {
                 _moveDir.x -= slowDownDrag * Time.fixedDeltaTime;
             }
-            else if (_moveDir.x < -0.05f)
+            else if (_moveDir.x <= -0.5f)
             {
                 _moveDir.x += slowDownDrag * Time.fixedDeltaTime;
             }
